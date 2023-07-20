@@ -1,0 +1,1 @@
+name,zone instance-db,europe-west2-c instance-wordpress,europe-west2-c
