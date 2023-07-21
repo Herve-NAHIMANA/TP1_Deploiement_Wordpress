@@ -28,16 +28,16 @@
       mysql_db:
         name: "{{db_name}}"
         state: present
-    - name: Enable remote login to mysql
+    - name: Enable remote login to mariadb
       lineinfile:
          path: /etc/mysql/mariadb.conf.d/50-server.cnf
          regexp: '^bind-address'
          line: 'bind-address = 0.0.0.0'
          backup: yes
       notify:
-         - Restart mysql
+         - Restart mariadb
   handlers:
-    - name: Restart mysql
+    - name: Restart mariadb
       service:
         name: mariadb
         state: restarted

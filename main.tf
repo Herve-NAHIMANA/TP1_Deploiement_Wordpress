@@ -15,8 +15,12 @@ provider "google" {
   zone   = var.gcp_zone
   project = var.gcp_project
 }
+module "vpc" {
+  source = "./vpc"
+}
 module "firewall" {
   source = "./firewall"
+  depends_on = [module.vpc]
 }
 module "instances" {
   source     = "./instance"

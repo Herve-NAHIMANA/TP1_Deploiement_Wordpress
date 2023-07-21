@@ -1,6 +1,6 @@
 plugin: gcp_compute
 zones: # populate inventory with instances in these regions
-  - europe-west2-c
+  - us-east1-b
 projects:
   - pojet-ecole
 service_account_file: ../keys.json
