@@ -23,9 +23,9 @@ Pour réaliser ce TP, on a crée les fichiers et on les a regroupé dans les dos
 - ansible
 	- templates
  		- wordpress.conf.j2 
-	- ansible.cfg   # Fichier de configuration ansible
-	- gcp_compute.yml  # Fichier utilisé pour recolter les instances
-	- group_vars.yml   # contient les variables(nom, password, db) pour la base de données
+	- ansible.cfg
+	- gcp_compute.yml
+	- group_vars.yml
 	- nom_des_instances.txt
 	- playbook_db.yml 
 	- playbook_wordpress.yml
@@ -36,9 +36,12 @@ Nous aurons besoins des ressources gcp compute engine d'où le sous dossier **in
 Enfin le **service_account** est utilisé pour créer un compte de service et de donner les droits nécessaire pour que la recolte dynamique des instances provisionné par ansible soit possible.
 Le fichier **main.tf** est un fichier principale pour terraform, variables regroupe tous variables utilisés dans les fichiers terraform du projet.
 
-Le dossier **ansible** regroupe les fichiers utilisés pour provisionner les machines créées par terraform.
-### Description des pré-requis
+Le dossier **ansible** regroupe le fichier de configuration de ansible, le fichier utilisé pour recolter dynamiquement les instances pour l'inventaire ansible, le fichier qui contient les variables(user, password, ..) pour la base de données et d'autres fichiers(playbooks) utilisés pour provisionner les machines créées par terraform.
 
+Le fichier **deployment.sh** est utilisé pour lance le deploiement complet.
+### Pré-requis
+- Avoir un compte de GCP
+- Avoir une machine qui tourne sur linux(Teste sur Ubuntu) les autres distributions il faut adapter le code ou utilise google cloud shell 
 ### Schema de présentation du déploiement
 
 ### Configuration es scripts pour chaque client
