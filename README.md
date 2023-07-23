@@ -41,7 +41,7 @@ Le dossier **ansible** regroupe le fichier de configuration de ansible, le fichi
 Le fichier **deployment.sh** est utilisé pour lance le deploiement complet.
 ### Pré-requis
 - Avoir un compte de GCP
-- Avoir une machine qui tourne sur linux(Teste sur Ubuntu) les autres distributions il faut adapter le code ou utilise google cloud shell 
+- Avoir une machine qui tourne sur linux(Teste sur Ubuntu les autres distributions il faut adapter le code) ou utilise google cloud shell 
 ### Schema de présentation du déploiement
 
 ### Configuration es scripts pour chaque client
