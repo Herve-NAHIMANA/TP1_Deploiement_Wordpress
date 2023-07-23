@@ -1,9 +1,9 @@
 # TP1 - Créer des VM sur GCP à l’aide de terraform et déployer une application wordpress avec ansible
 ----------------------------------------------------------------------------------------------------------
+### Objectif de ce TP
 Le TP consiste à déployer deux instances sur GCP qui vont permettre d'héberger une application wordpress et sa base de données.
-Pour réaliser ce TP, on a jugé bon de regrouper de créer les fichiers et de les regrouper dans les dossiers et sous dossiers(modules) comme suit:
-
 ### Description des fichiers fournis
+Pour réaliser ce TP, on a jugé bon de regrouper de créer les fichiers et de les regrouper dans les dossiers et sous dossiers(modules) comme suit:
 - terraform
 	- instance
 		- instance.tf
