@@ -23,11 +23,11 @@ Pour réaliser ce TP, on a crée les fichiers et on les a regroupé dans les dos
 - ansible
 	- templates
  		- wordpress.conf.j2 
-	- ansible.cfg
-	- gcp_compute.yml
-	- group_vars.yml
+	- ansible.cfg   # Fichier de configuration ansible
+	- gcp_compute.yml  # Fichier utilisé pour recolter les instances
+	- group_vars.yml   # contient les variables(nom, password, db) pour la base de données
 	- nom_des_instances.txt
-	- playbook_db.yml
+	- playbook_db.yml 
 	- playbook_wordpress.yml
  - deployment.sh
 
@@ -35,6 +35,8 @@ Le dossier **Terraform** regroupe tous les fichiers terraform nécessaire au dé
 Nous aurons besoins des ressources gcp compute engine d'où le sous dossier **instance** qui est utilisé pour créer les machines virtuelles sur gcp, le sous dossier **vpc** est utilisé pour créer un réseau virtuel(Virtual Private Cloud) et un sous-réseau, le **firewall** pour un pare-feu afin de pouvoir autoriser le traffic entrant vers nos VMs.
 Enfin le **service_account** est utilisé pour créer un compte de service et de donner les droits nécessaire pour que la recolte dynamique des instances provisionné par ansible soit possible.
 Le fichier **main.tf** est un fichier principale pour terraform, variables regroupe tous variables utilisés dans les fichiers terraform du projet.
+
+Le dossier **ansible** regroupe les fichiers utilisés pour provisionner les machines créées par terraform.
 ### Description des pré-requis
 
 ### Schema de présentation du déploiement
