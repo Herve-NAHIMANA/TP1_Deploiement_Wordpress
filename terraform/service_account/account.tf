@@ -8,7 +8,7 @@ resource "google_service_account_key" "service_account" {
 }
 resource "local_file" "service_account" {
     content  = base64decode(google_service_account_key.service_account.private_key)
-    filename = "../ansible/service_account.json"
+    filename = "../ansible/${var.file_name}"
 }
 resource "google_project_iam_binding" "project" {
   project = var.gcp_project

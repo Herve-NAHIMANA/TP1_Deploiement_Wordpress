@@ -1,10 +1,10 @@
 resource "google_compute_instance" "computer_engine" {
 for_each = var.instance_name
   name =  "instance-${each.value}"
-  machine_type = "e2-medium"
+  machine_type = var.machine_type
   boot_disk {
     initialize_params {
-      image = "debian-cloud/debian-11"
+      image = var.image_disk
       labels = {
         my_label = "value"
       }
@@ -12,8 +12,8 @@ for_each = var.instance_name
   }
 
    network_interface {
-    network = "test-network"
-    subnetwork = "test-subnetwork"
+    network = var.vpc_name
+    subnetwork = var.subnet_name
 
     access_config {
       // Ephemeral public IP

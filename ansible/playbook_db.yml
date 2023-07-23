@@ -1,4 +1,4 @@
-- name: setup Mysql with wordpress_db db and remote login
+- name: setup Mysql with wordpress_db and remote login
   become: yes
   hosts: instance-db
   vars_files: group_vars.yml  
