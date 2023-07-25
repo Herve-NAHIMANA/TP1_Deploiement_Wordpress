@@ -3,10 +3,10 @@
 ##############################################################################
 #                            Déclaration des variables                       #
 ##############################################################################
-USER="herve_nahimana1996" # Remplacez "" par le nomutilisateur
+USER="" # Remplacez "" par le nomutilisateur
 
 # Remplacez "VOTRE_PROJET" par l'ID de votre projet GCP
-PROJET="pojet-ecole"
+PROJET=""
 
 # Remplacez la valeur de la zone
 ZONE="us-east1-b"
