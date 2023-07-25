@@ -3,7 +3,7 @@
 ### Objectif de ce TP
 Le TP consiste à déployer deux instances sur GCP qui vont permettre d'héberger une application wordpress et sa base de données.
 ### Dossiers et fichiers que contient ce TP
-Pour réaliser ce TP, on a crée les fichiers et on les a regroupé dans les dossiers et sous dossiers(modules) comme suit:
+Pour réaliser ce TP, on a crée les fichiers et on les a regroupé dans les dossiers et sous dossiers comme suit:
 - terraform
 	- instance
 		- instance.tf
