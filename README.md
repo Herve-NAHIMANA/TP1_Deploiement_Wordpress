@@ -34,7 +34,7 @@ Pour réaliser ce TP, on a crée les fichiers et on les a regroupé dans les dos
 Le dossier **Terraform** regroupe tous les fichiers terraform nécessaire au déploiement des ressources gcp que nous allons utiliser dans ce projet.
 Nous aurons besoins des ressources gcp compute engine d'où le sous dossier **instance** qui est utilisé pour créer les machines virtuelles sur gcp, le sous dossier **vpc** est utilisé pour créer un réseau virtuel(Virtual Private Cloud) et un sous-réseau, le **firewall** pour un pare-feu afin de pouvoir autoriser le traffic entrant vers nos VMs.
 Enfin le **service_account** est utilisé pour créer un compte de service et donner les droits nécessaires. 
-Le fichier **main.tf** est un fichier principale pour terraform, variables regroupe tous variables utilisés dans les fichiers terraform du projet.
+Le fichier **main.tf** est un fichier principal pour terraform, **variables.tf** regroupe toutes les variables utilisés dans les fichiers terraform du projet.
 
 Le dossier **ansible** regroupe le fichier de configuration de ansible, le fichier utilisé pour recolter dynamiquement les instances pour l'inventaire ansible, le fichier qui contient les variables(user, password, ..) pour la base de données et d'autres fichiers(playbooks) utilisés pour provisionner les machines créées par terraform.
 
