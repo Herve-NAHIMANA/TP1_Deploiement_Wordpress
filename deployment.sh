@@ -4,11 +4,15 @@
 #                            Déclaration des variables                       #
 ##############################################################################
 USER="herve_nahimana1996" # Remplacez "" par le nomutilisateur
+
 # Remplacez "VOTRE_PROJET" par l'ID de votre projet GCP
 PROJET="pojet-ecole"
 
-
-# 5- Vérifier et installer Terraform si nécessaire
+# Remplacez la valeur de la zone
+ZONE="us-east1-b"
+# Séparateur par défaut en bash (utilisé pour les boucles)
+    IFS=$'\n'
+# 1- Vérifier et installer Terraform si nécessaire
 if ! command -v terraform &> /dev/null; then
     sudo apt-get update && sudo apt-get install -y gnupg software-properties-common
     wget -O- https://apt.releases.hashicorp.com/gpg | \
@@ -21,7 +25,7 @@ if ! command -v terraform &> /dev/null; then
     sudo apt-get install terraform
 fi
 
-# 6- Vérifier et installer Ansible si nécessaire
+# 2- Vérifier et installer Ansible si nécessaire
 if ! command -v ansible &> /dev/null; then
     sudo apt update
     sudo apt install -y ansible
@@ -31,14 +35,14 @@ gcloud services enable compute.googleapis.com --project=$PROJET
 gcloud services enable cloudresourcemanager.googleapis.com --project=$PROJET
 gcloud services enable iam.googleapis.com --project=$PROJET
 # exécution de terraform init si nécessaire
+cd terraform
 terraform init
 
-# 8- Application de la création avec Terraform
+# 3- Application de la création avec Terraform
 terraform apply -auto-approve
 ##############################################################################
 #                         Début création de la clé ssh                        #
 ##############################################################################
-echo "Début réation de la clé ssh "
 # 4- Vérifier si une clé SSH est présente sur la VM, sinon en créer une
 if [ ! -f ~/.ssh/id_rsa ]; then
     ssh-keygen -t rsa -N "" -f ~/.ssh/id_rsa -C "$USER"
@@ -57,42 +61,51 @@ echo "$USER:$VARIABLE_CONTENU" > ssh_keys
 ##############################################################################
 
 ##############################################################################
-#                    Début nvoi de de la clé ssh sur les VM                  #
+#                    Début envoi de de la clé ssh sur les VM                  #
 ##############################################################################
 echo "Début d'envoi de la clé ssh sur tous les vms "
-
-
-# Récupère la liste des noms et des zones d'instance à l'aide de gcloud
+# 5- Récupère la liste des noms et des zones d'instance à l'aide de gcloud
 instances_info=$(gcloud compute instances list --project $PROJET --format="csv(NAME,ZONE)")
-echo $instances_info > 'ansible/test_instance.txt'
+echo $instances_info > '../ansible/nom_des_instances.txt'
 
-# Vérifie si des instances sont trouvées
+# 6- Vérifie si des instances sont trouvées
 if [ -z "$instances_info" ]; then
     echo "Aucune instance trouvée dans le projet $PROJET."
 else
     echo "Liste des noms et des zones d'instance dans le projet $PROJET :"
-    echo "$instances_info"
+# Affichage du tableau des instances
+    echo "+--------------------------------+------------------------------+"
+    printf "| %-30s |%-30s|\n" "Nom d'instance" "Zone"
+    echo "+--------------------------------+------------------------------+"
+    for instance_info in $instances_info; do
+        # Découpe la ligne en nom et zone
+        IFS=',' read -r instance_name zone <<< "$instance_info"
 
-    # Séparateur par défaut en bash (utilisé pour les boucles)
-    IFS=$'\n'
-
+        if [ "$instance_name" != "name" ] || [ "$zone" != "zone" ]; then        
+            # Affiche les valeurs dans le tableau
+            printf "| %-30s |%-30s|\n" "$instance_name" "$zone"
+        fi
+    done
+    echo "+--------------------------------+------------------------------+"
     # Boucle pour traiter chaque nom d'instance et sa zone
     for instance_info in $instances_info; do
         # Découpe la ligne en nom et zone
         IFS=',' read -r instance_name zone <<< "$instance_info"
 
-        echo "Traitement de l'instance : $instance_name (zone : $zone)"
+        if [ "$instance_name" != "name" ] || [ "$zone" != "zone" ]; then      
+            echo "Traitement de l'instance : $instance_name (zone : $zone)"
 
-        # Exécute la commande gcloud avec le nom d'instance et la zone actuels
-        gcloud compute instances add-metadata "$instance_name" --zone "$zone" --metadata-from-file ssh-keys=ssh_keys --project $PROJET
+            # Exécute la commande gcloud avec le nom d'instance et la zone actuels
+            gcloud compute instances add-metadata "$instance_name" --zone "$zone" --metadata-from-file ssh-keys=ssh_keys --project $PROJET
 
-        # Vérifie le code de sortie de la commande gcloud
-        if [ $? -eq 0 ]; then
-            echo "Clé SSH ajoutée à l'instance $instance_name (zone : $zone) avec succès."
-        else
-            echo "Une erreur s'est produite lors de l'ajout de la clé SSH à l'instance $instance_name (zone : $zone)."
+            # Vérifie le code de sortie de la commande gcloud
+            if [ $? -eq 0 ]; then
+                echo "Clé SSH ajoutée à l'instance $instance_name (zone : $zone) avec succès."
+            else
+                echo "Une erreur s'est produite lors de l'ajout de la clé SSH à l'instance $instance_name (zone : $zone)."
+            fi
         fi
-    done
+    done   
 fi
 ##############################################################################
 #                       Fin de d'envoi de la clé                             #
@@ -100,16 +113,16 @@ fi
 ##############################################################################
 #                       Lancement des playbooks                              #
 ##############################################################################
-cd ansible
+cd ../ansible
 
-if grep -q "instance-wordpress" test_instance.txt; then
-ansible-playbook playbook_wordpress.yml -i ./gcp_compute.yml
+if grep -q "instance-wordpress" nom_des_instances.txt; then
+    ansible-playbook playbook_wordpress.yml -i "./gcp_compute.yml"
 fi
-if grep -q "instance-db" test_instance.txt; then
-ansible-playbook playbook_db.yml -i ./gcp_compute.yml
+if grep -q "instance-db" nom_des_instances.txt; then
+    ansible-playbook playbook_db.yml -i "./gcp_compute.yml"
 fi
-# 10- Vérification que l'application fonctionne
-wordpress_ip="$(gcloud compute instances describe instance-wordpress --project $PROJET --zone us-east1-b --format='get(networkInterfaces[0].accessConfigs[0].natIP)')"
+# 7- Vérification que l'application fonctionne
+wordpress_ip="$(gcloud compute instances describe instance-wordpress --project $PROJET --zone $ZONE --format='get(networkInterfaces[0].accessConfigs[0].natIP)')"
 echo $wordpress_ip
 status_code=$(curl -s -o /dev/null -w "%{http_code}" $wordpress_ip)
 if [ $status_code -eq 200 ] || [ $status_code -eq 302 ] || [ $status_code -eq 301 ]; then
