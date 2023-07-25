@@ -53,6 +53,5 @@ Le fichier **deployment.sh** est utilisé pour lance le deploiement complet.
       -  Avoir Installé gcloud cli. [Suivez le lien pour l'installer](https://cloud.google.com/sdk/docs/install?hl=fr#linux)
      - ##### Pour le cloud shell:
        Aucun pré-requis
-### Schema de présentation du déploiement
-
-### Configuration es scripts pour chaque client
+### Déploiement du TP
+1. Clone le dossier sur github sur ce lien [https://github.com
