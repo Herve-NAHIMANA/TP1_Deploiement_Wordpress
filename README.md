@@ -64,7 +64,7 @@ Le fichier **deployment.sh** est utilisé pour lance le deploiement complet.
 	- Pour ceux utilisant Linux(Ubuntu):
 		`bash deploiement.sh`
 	- pour ceux utilisant le cloud shell:
-		`shell deploiement.sh`
+		`sh deploiement.sh`
 8. Une fois le script lancé, il faut attendre un moment pour que le deploiement soit complet, vous aurez à la fin l'adresse ip de l'application et un message vous 
    disant que l'application est fonctionnelle.
 
