@@ -53,5 +53,17 @@ Le fichier **deployment.sh** est utilisé pour lance le deploiement complet.
       -  Avoir Installé gcloud cli. [Suivez le lien pour l'installer](https://cloud.google.com/sdk/docs/install?hl=fr#linux)
      - ##### Pour le cloud shell:
        Aucun pré-requis
-### Déploiement du TP
-1. Clone le dossier sur github sur ce lien [https://github.com
+### Déploiement de l'application complet(serveur pour wordpress ainsi que le serveur de base de données)
+1. Cloner le dossier sur github [TP1_Deploiement_wordpress](https://github.com/Herve-NAHIMANA/TP1_Deploiement_Wordpress.git)
+2. Se placer dans le dossier cloné `cd TP1_Deploiement_wordpress`   
+3. Modifier les variables **USER**, **PROJET** et **ZONE** dans `deploiement.sh`
+4. Modifier **toutes les variables** selon vos besoins ou les laisser par défaut dans `terraform/variables.tf`
+5. Modifier la variable **projects** dans `ansible/gcp_compute.yml`
+6. Modifier les variables **db_user**, **db_pass** et **db_name** ou les laisser par défaut selon vos besoins dans `ansible/group_vars.yml`
+7. se place à la racine du dossier `TP1_Deploiement_wordpress` et lancer le script de déploiement
+	- Pour ceux utilisant Linux(Ubuntu):
+		`bash deploiement.sh`
+	- pour ceux utilisant le cloud shell:
+		`shell deploiement.sh`
+8. Une fois le script lancé, il faut attendre un moment pour que le deploiement soit complet, vous aurez à la fin l'adresse ip de l'application et un message vous 
+   disant que l'application est fonctionnelle.
