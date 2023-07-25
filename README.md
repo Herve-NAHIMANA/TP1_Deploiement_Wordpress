@@ -67,3 +67,8 @@ Le fichier **deployment.sh** est utilisé pour lance le deploiement complet.
 		`shell deploiement.sh`
 8. Une fois le script lancé, il faut attendre un moment pour que le deploiement soit complet, vous aurez à la fin l'adresse ip de l'application et un message vous 
    disant que l'application est fonctionnelle.
+
+
+**NB**: Le **USER** c'est le nom d'utilisateur de la machine, il faut prendre le nom se trouvant avant le @ dans le terminal.
+	
+         Exemple: root@192.168.1.2 ou root@cloudshell, dans les deux cas le USER est root
