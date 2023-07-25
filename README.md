@@ -40,8 +40,19 @@ Le dossier **ansible** regroupe le fichier de configuration de ansible, le fichi
 
 Le fichier **deployment.sh** est utilisé pour lance le deploiement complet.
 ### Pré-requis
-- Avoir un compte de GCP
-- Avoir une machine qui tourne sur linux(Teste sur Ubuntu les autres distributions il faut adapter le code) ou utilise google cloud shell 
+- Avoir un compte GCP
+- Avoir une machine ou une vm qui tourne sur linux(Teste sur Ubuntu les autres distributions il faut adapter le code) ou utilise google cloud shell
+	- ##### Pour une machine sous Linux(Ubuntu):
+		- Avoir python3, pip3 et google-auth requests installés, si ce n'est pas le cas voici les paquets à installer
+  
+    		`sudo apt install python3`
+    
+    		`sudo apt install python3-pip`
+    
+    		`sudo pip install ansible google-auth requests`
+      -  Avoir Installé gcloud cli. [Suivez le lien pour l'installer](https://cloud.google.com/sdk/docs/install?hl=fr#linux)
+     - ##### Pour le cloud shell:
+       Aucun pré-requis
 ### Schema de présentation du déploiement
 
 ### Configuration es scripts pour chaque client
