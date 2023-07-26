@@ -62,9 +62,9 @@ Le fichier **deployment.sh** est utilisé pour lance le deploiement complet.
 6. Modifier les variables **db_user**, **db_pass** et **db_name** ou les laisser par défaut selon vos besoins dans `ansible/group_vars.yml`
 7. se place à la racine du dossier `TP1_Deploiement_wordpress` et lancer le script de déploiement
 	- Pour ceux utilisant Linux(Ubuntu):
-		`bash deploiement.sh`
+		`bash deployment.sh`
 	- pour ceux utilisant le cloud shell:
-		`sh deploiement.sh`
+		`sh deployment.sh`
 8. Une fois le script lancé, il faut attendre un moment pour que le deploiement soit complet, vous aurez à la fin l'adresse ip de l'application et un message vous 
    disant que l'application est fonctionnelle.
 

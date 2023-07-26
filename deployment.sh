@@ -34,8 +34,13 @@ fi
 gcloud services enable compute.googleapis.com --project=$PROJET
 gcloud services enable cloudresourcemanager.googleapis.com --project=$PROJET
 gcloud services enable iam.googleapis.com --project=$PROJET
-# exécution de terraform init si nécessaire
-cd terraform
+# Vérification de la présence des fichiers Terraform et exécution de terraform init
+if [ ! -d "terraform" ]; then
+    git clone https://github.com/Herve-NAHIMANA/TP1_Deploiement_Wordpress.git
+    cd TP1_Deploiement_Wordpress/terraform
+else
+    cd terraform
+fi
 terraform init
 
 # 3- Application de la création avec Terraform
